@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+  db_dev:
+    image: mysql:latest
+    # ports:
+    #   - "5306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_dev
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - network
+
+  api_dev:
+    build:
+      context: ./api-django
+      dockerfile: Dockerfile.api
+    ports:
+      - "7100:8000"
+    depends_on:
+      - db_dev
+    environment:
+      - DATABASE_URL=mysql://root:root@db_dev/db
+    volumes:
+      - ./api-django:/app
+    networks:
+      - network
+
+  web_dev:
+    build:
+      context: ./web-angular
+      dockerfile: Dockerfile.web.dev
+    ports:
+      - "4300:3000"
+    volumes:
+      - ./web-angular:/app
+    env_file:
+      - ./web-angular/.env
+
+networks:
+  network:
+
+volumes:
+  mysql_data:

@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  db_prod:
+    image: mysql:latest
+    # ports:
+    #   - "5306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_prod
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+    volumes:
+      - mysql_prod_data:/var/lib/mysql
+    networks:
+      - network_prod
+
+  api_prod:
+    build:
+      context: ./api-django
+      dockerfile: Dockerfile.server
+    ports:
+      - "7200:8000"
+    depends_on:
+      - db_prod
+    environment:
+      - DATABASE_URL=mysql://root:root@db_prod/db_prod
+    volumes:
+      - ./api-django:/app
+    networks:
+      - network_prod
+
+  web_prod:
+    build:
+      context: ./web-angular
+      dockerfile: Dockerfile.web.prod
+    ports:
+      - "8082:80"
+    environment:
+      - VITE_API_URL=api_prod:7200
+
+    networks:
+      - network_prod
+
+networks:
+  network_prod:
+
+volumes:
+  mysql_prod_data:
