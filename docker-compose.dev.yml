@@ -20,7 +20,7 @@ services:
       context: ./api-django
       dockerfile: Dockerfile.api
     ports:
-      - "7100:8000"
+      - "7100:9000"
     depends_on:
       - db_dev
     environment:
@@ -35,7 +35,7 @@ services:
       context: ./web-angular
       dockerfile: Dockerfile.web.dev
     ports:
-      - "4300:3000"
+      - "4300:4400"
     volumes:
       - ./web-angular:/app
     env_file:

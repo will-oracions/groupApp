@@ -57,3 +57,5 @@ Thumbs.db
 # Zip Files
 *.zip
 *.rar
+
+.pnpm-store
