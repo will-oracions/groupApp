@@ -1,6 +1,6 @@
 # 🦜️ TP d'Atelier de Génie Logiciel: Application de gestion des ménages
 
-Bienvenue dans Menage Manager TP Web APP, une application web de gestion des tâches ménagères !
+Bienvenue dans <Menage Manager> TP Web APP, une application web pour....
 
 ## Introduction
 
