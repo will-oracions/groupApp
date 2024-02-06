@@ -1,7 +1,7 @@
 # START ALL SERVICES (db + api + web)
 
 ## For dev env
-```shell
+```sh
 docker-compose -f docker-compose.dev.yml up -d --build
 ```
 
