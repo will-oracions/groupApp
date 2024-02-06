@@ -22,43 +22,35 @@ Assurez-vous d'avoir Docker et Docker Compose installés sur votre système.
 
 2. Accédez au répertoire du projet :
     ```sh
-        cd groupApp
+    cd groupApp
     ```
+3. Démarrez tous les services avec Docker:
 
-
-## START ALL SERVICES (db + api + web)
-
-### For dev env
+    Pour l'environnement de développement
     ```sh
     docker-compose -f docker-compose.dev.yml up -d --build
     ```
+    Pour l'environnement de production
+    ```shell
+    docker-compose -f docker-compose.prod.yml up -d --build
+    ```
 
-### For prod env
-```shell
-docker-compose -f docker-compose.prod.yml up -d --build
-```
+## Utilisation
+Une fois les services démarrés, vous pouvez accéder à l'application via votre navigateur web :
+
+Pour l'environnement de développement : `http://localhost:4300`
+Pour l'environnement de production : `http://localhost:4300`
 
 
-### Watch all services
+#### Surveillance des services
 
-#### For dev env
+Pour l'environnement de développement
+
 ```shell
 docker-compose -f docker-compose.dev.yml logs -f
 ```
 
-#### For prod env
+Pour l'environnement de production
 ```shell
 docker-compose -f docker-compose.prod.yml logs -f
-```
-
-### Running Services URLs
-
-#### API
-```shell
-http://localhost:7100
-```
-
-#### Web
-```shell
-http://localhost:4300
 ```
