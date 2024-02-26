@@ -15,18 +15,33 @@ services:
     networks:
       - network
 
+    # api_dev:
+    #   build:
+    #     context: ./api-django
+    #     dockerfile: Dockerfile.api
+    #   ports:
+    #     - "7100:9000"
+    #   depends_on:
+    #     - db_dev
+    #   environment:
+    #     - DATABASE_URL=mysql://root:root@db_dev/db
+    #   volumes:
+    #     - ./api-django:/app
+    #   networks:
+    #     - network
+
   api_dev:
     build:
-      context: ./api-django
+      context: ./api-express
       dockerfile: Dockerfile.api
     ports:
-      - "7100:9000"
+      - "7900:9000"
     depends_on:
       - db_dev
-    environment:
-      - DATABASE_URL=mysql://root:root@db_dev/db
+    # environment:
+    #   - DATABASE_URL=mysql://root:root@db_dev/db
     volumes:
-      - ./api-django:/app
+      - ./api-express:/app
     networks:
       - network
 
