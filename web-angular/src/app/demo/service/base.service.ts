@@ -102,10 +102,10 @@ export class FormService {
   }
 
 
-  update(api: string, form: any): Observable<any> {
+  update(api: string, form: any, id:number): Observable<any> {
     console.log("Update ok", form);
 
-    return this.http.put<any>(`${environment.apiUrl}/${api}`, JSON.stringify(form), this.httpOptions)
+    return this.http.put<any>(`${environment.apiUrl}/${api}/${id}`, JSON.stringify(form), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)

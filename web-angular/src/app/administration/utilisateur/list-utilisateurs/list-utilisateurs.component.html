@@ -1,1 +1,2 @@
-<app-generic-table [columns]="tableColumns" [fields]="formsFields" [data]="tableData" titlePage="Liste des Utilisateurs"></app-generic-table>
+<app-skelleton *ngIf="load" [table]="['Noms Utilisateur', 'Role']" title="Liste Utilisateurs"></app-skelleton>
+<app-generic-table [columns]="tableColumns" *ngIf="!load" [fields]="formsFields" [data]="tableData" titlePage="Liste des Utilisateurs"></app-generic-table>

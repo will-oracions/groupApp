@@ -2,11 +2,12 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { BehaviorSubject, tap } from "rxjs";
 import { User } from "../interface/account/user";
+import { AccountService } from "./account.service";
 
 @Injectable({
     providedIn: 'root',
   })
-  export class AuthentificationService {
+  export class AuthentificationsService {
     public _isLoggedIn$ = new BehaviorSubject<boolean>(false);
     public readonly TOKEN_NAME = 'Key';
     isLoggedIn$ = this._isLoggedIn$.asObservable();
@@ -27,7 +28,7 @@ import { User } from "../interface/account/user";
       return localStorage.getItem("role");
   
     }
-    constructor(private apiService: AuthentificationService, private router: Router) {
+    constructor(private apiService: AccountService, private router: Router) {
       this._isLoggedIn$.next(!!this.token);
     }
   
@@ -36,7 +37,9 @@ import { User } from "../interface/account/user";
         tap((response: any) => {
           this._isLoggedIn$.next(true);
           localStorage.setItem(this.TOKEN_NAME, response.accessToken);
-          this.user = this.getUser(response.accessToken);
+          this.user = this.getUser(response.token);
+          console.log(this.user);
+          this.router.navigateByUrl("/administration")
           localStorage.setItem("user", JSON.stringify(this.user));
           localStorage.setItem("role", JSON.stringify(this.user.role));
           localStorage.setItem("info", JSON.stringify(response.profile));

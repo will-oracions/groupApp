@@ -23,6 +23,6 @@ export class AppComponent {
     ngOnInit() {
         this.primengConfig.ripple = true;
         this.ripple = true;
-        document.title = "Campus Manager";
+        document.title = "Group App ";
     }
 }

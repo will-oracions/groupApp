@@ -6,6 +6,6 @@
 export const environment = {
   production: false,
 
-  apiUrl:"",
+  apiUrl:"https://grouppappapi.onrender.com/api",
   apiMinefop:"",
 };

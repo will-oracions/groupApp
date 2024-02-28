@@ -9,16 +9,15 @@
                     <div class="p-col-12">
                         <div class="input-wrapper input-field"
                             [class.error]="username.invalid && username.hasError('required','type')">
-                            <label class="form-label" for="form3Example3">Email Adress<span
+                            <label class="form-label" for="form3Example3">Noms d'utilisateur<span
                                     class="text-danger me-1">*</span></label>
-                            <input type="email" formControlName="email" placeholder="user@gmail.com " required
+                            <input type="text" formControlName="username" placeholder="user " required
                                 pInputText>
                         </div> 
                         <div *ngIf="username.invalid && (username.touched || username.dirty) ">
                             <span class="error fs-6 text-danger mx-2 my-2 " *ngIf="username.errors?.required ">*The
-                                Email Adress is required</span>
-                            <span class="error fs-6 text-danger mx-2 my-2 " *ngIf="username.errors?.email ">*The Email
-                                is not valid</span>
+                                username is required</span>
+                
 
                         </div>
                     </div>
@@ -33,16 +32,20 @@
                     <div *ngIf="password.invalid && (password.touched || password.dirty) ">
                         <span class="error fs-6 text-danger mx-2 my-2 " *ngIf="password.errors?.required ">*The Password
                             is Required</span>
-                        <span class="error fs-6 text-danger mx-2 my-2 " *ngIf="password.errors?.minlength ">*Password
-                            must be at least 8 characters</span>
+                      
 
                     </div>
+                    <span class="error fs-6 text-danger mx-2 my-2 "
+                    *ngIf="subscribError ">*{{subscribError?.message}}.</span>
                 
                     <div class="checkbox-container" style="padding-left: 10px;">
 
-                        <button pButton pRipple type="submit" style="width: 100%;" label="Login"
+                        <button pButton pRipple type="submit" style="width: 100%;"  label="Login"
                             class="p-button-rounded p-button-primary mr-2 mb-2"
+                            [disabled]="submitted"
                             >
+                            <i *ngIf="submitted" class="pi pi-spin pi-spinner"></i>
+
                         </button>
                     </div>
                 </form>

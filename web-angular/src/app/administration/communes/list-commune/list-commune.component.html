@@ -1,1 +1,2 @@
-<app-generic-table [columns]="tableColumns" [fields]="formsFields" [data]="tableData" titlePage="Liste des Communes"></app-generic-table>
+<app-skelleton *ngIf="load" [table]="['Code', 'Libelle']" title="Liste Des Communes"></app-skelleton>
+<app-generic-table [columns]="tableColumns"  (customsEvent)="event($event)" option="CRUD"  [fields]="formsFields" *ngIf="!load" endPoints="communes" [data]="tableData" titlePage="Liste des Communes"></app-generic-table>

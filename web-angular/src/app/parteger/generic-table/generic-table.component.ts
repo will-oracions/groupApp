@@ -1,27 +1,41 @@
-import { Component, ComponentFactoryResolver, Injector, Input } from '@angular/core';
+import { Component, ComponentFactoryResolver, EventEmitter, Injector, Input, Output } from '@angular/core';
 import { Validators } from '@angular/forms';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { FormService } from 'src/app/demo/service/base.service';
 
 @Component({
   selector: 'app-generic-table',
   templateUrl: './generic-table.component.html',
-  styleUrls: ['./generic-table.component.scss']
+  styleUrls: ['./generic-table.component.scss'],
+  providers: [MessageService, ConfirmationService],
+
 })
 export class GenericTableComponent {
     @Input() columns: any[] = [];
     @Input() data: any[] = [];
     @Input() titlePage: string = "";
     @Input() fields: any[] = [];
+    @Input() endPoints: string;
+    @Input() option: string = "";
 
+    @Output() customsEvent = new EventEmitter<string>();
+    deleteDialog: boolean = false;
     dynamicComponents: any = {};
     viewContainerRef: any;
     temporaile: any = {};
     visible: boolean = false;
     title: string = "";
-    size= "7"
-    constructor() {}
+    size= "7";
+    state: string;
+    temps: any;
+    constructor(
+      private messageService: MessageService,
+      private confirmationService: ConfirmationService,
+      private service : FormService) {}
 
     ngOnInit() {
+      console.log(this.columns)
       this.columns.forEach((col) => {
         if (col.component) {
           this.dynamicComponents[col.field] = col.component;
@@ -43,6 +57,7 @@ export class GenericTableComponent {
 openNew() {
     this.title = "Ajouter"
     this.temporaile = {};
+    this.state = "add";
     this.visible = true;
 }
 
@@ -50,23 +65,45 @@ openNew() {
 
 edit(val: any) {
     this.title = "Modifier"
-    console.log(val);
 
     this.temporaile = { ...val };
-    console.log(this.temporaile);
+    this.state = "modifier";
     this.visible = true;
 }
+async delete(val: any) {
+  console.log(val)
+  this.temps = {...val};
+    this.deleteDialog = true;
 
 
+}
+deletes(item:any){
+  this.service.delete(this.endPoints+"/"+this.temps.id).subscribe((result) => {
+    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Supprimer avec success', life: 3000 });
+
+    this.deleteDialog = false;
+    this.temporaile = {};
+    this.event("refresh");
+
+  },
+  (error) =>{
+    this.messageService.add({ severity: 'error', summary: 'Erreur', detail: error.message, life: 5000 });
+  })
+
+}
 hideDialog() {
   this.visible = false;
 }
 
 event(event: any){
-    console.log(event)
     if(event == "disabled"){
         this.visible = false;
+    }else if(event == 'refresh'){
+      this.visible = false;
+      this.customsEvent.emit("refresh");
+
     }
 
 }
+
 }

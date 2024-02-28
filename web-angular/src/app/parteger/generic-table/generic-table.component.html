@@ -1,4 +1,5 @@
 <div class="card border-round-2xl">
+    <p-toast></p-toast>
 
 <p-table
 #dt
@@ -45,6 +46,8 @@ dataKey="id"
                 </div>
 
                 <p-button
+                *ngIf="option[0] == 'C' "
+
                     label="Ajouter"
                     icon="pi pi-plus"
                     (click)="openNew()"
@@ -120,18 +123,23 @@ dataKey="id"
       <td>
         <div class="flex">
             <i
+            *ngIf="option[1] == 'R' "
+
                 class="pi pi-eye icon mr-3"
                 style="font-size: 1.5rem"
             ></i>
             <i
+            *ngIf="option[2] == 'U' "
+
                 class="pi pi-pencil icon mr-3"
                 (click)="edit(item)"
 
                 style="font-size: 1.5rem"
             ></i>
             <i
-                class="pi pi-trash icon"
-
+            *ngIf="option[3] == 'D' "
+            class="pi pi-trash icon"
+                (click)="delete(item)"
                 style="font-size: 1.5rem"
             ></i>
         </div>
@@ -141,22 +149,33 @@ dataKey="id"
 <ng-template pTemplate="emptymessage">
     <tr>
         <td
-            colspan={{size}}
+        [attr.colspan]="columns.length+2" 
             style="text-align: center"
             style="text-align: center"
         >
-            Aucun element  trouvé.{{columns.length+2}}
+            Aucun element  trouvé.
         </td>
     </tr>
 </ng-template>
 </p-table>
 </div>
 
-
+<p-dialog [(visible)]="deleteDialog" header="Suppression" [modal]="true" [style]="{ width: '450px' }">
+    <div class="flex align-items-center">
+        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem; color: red"></i>
+        <span>Voulez-vous supprimer ?</span>
+    </div>
+    <ng-template pTemplate="footer">
+        <button pButton pRipple icon="pi pi-times" class="p-button-secondary" label="Non" size="small"
+            (click)="deleteDialog = false"></button>
+        <button pButton pRipple size="small" icon="pi pi-check" class="p-button-danger" label="oui , supprimer"
+            (click)="deletes()"></button>
+    </ng-template>
+</p-dialog>
 
 <p-dialog header="{{title}}" [(visible)]="visible"    [modal]="true"
 [style]="{ minWidth: '30%', borderRadius: '40px' }"
 [draggable]="false"
 [resizable]="false">
-    <app-generic-forms (customEvent)="event($event)" [temporaile]="temporaile" [fields]="fields"></app-generic-forms>
+    <app-generic-forms (customEvent)="event($event)" [status]="state" [temporaile]="temporaile" [endPoint]="endPoints" [fields]="fields"></app-generic-forms>
 </p-dialog>

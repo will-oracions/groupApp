@@ -15,6 +15,8 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { GenericTableComponent } from './generic-table/generic-table.component';
 import { GenericFormsComponent } from './generic-forms/generic-forms.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 
@@ -35,6 +37,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SkelletonComponent,
     GenericTableComponent,
     GenericFormsComponent,
+    
 ],
   imports: [
     CommonModule,
@@ -47,7 +50,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FileUploadModule,
     ProgressBarModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastModule,
+    DropdownModule
 
   ]
 })

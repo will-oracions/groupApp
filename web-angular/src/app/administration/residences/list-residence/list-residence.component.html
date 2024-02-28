@@ -1,1 +1,3 @@
-<app-generic-table [columns]="tableColumns"  [data]="tableData" titlePage="Liste des Residences"></app-generic-table>
+<app-skelleton *ngIf="load" [table]="['Noms', 'Role']" title="Liste Des Residences"></app-skelleton>
+
+<app-generic-table [columns]="tableColumns" *ngIf="!load" [data]="tableData" titlePage="Liste des Residences"></app-generic-table>
