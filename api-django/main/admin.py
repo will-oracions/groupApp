@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models.agent import Agent
-from .models.commune import Commune
-from .models.menage import Menage
-from .models.people import People
-from .models.street import Street
-from .models.vulnerability import Vulnerability
+from .modules.agents.agent import Agent
+from .modules.communes.commune import Commune
+from .modules.menages.menage import Menage
+from .modules.peoples.people import People
+from .modules.streets.street import Street
+from .modules.vulnerabilities.vulnerability import Vulnerability
 
 admin.site.register(Agent)
 admin.site.register(Commune)
