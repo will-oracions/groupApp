@@ -18,6 +18,8 @@ class PeopleStatusChoices(models.TextChoices):
 class Agent(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=255, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -26,14 +28,28 @@ class Agent(models.Model):
         return self.first_name
 
 
-class Street(models.Model):
-    label = models.CharField(max_length=255)
+class Commune(models.Model):
+    name = models.CharField(max_length=255)
+    code = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.label
+        return self.name
+
+
+class Street(models.Model):
+    name = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    commune = models.ForeignKey(Commune, on_delete=models.PROTECT)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Menage(models.Model):
@@ -50,18 +66,6 @@ class Menage(models.Model):
         return self.name
 
 
-class Commune(models.Model):
-    label = models.CharField(max_length=255)
-    code = models.CharField(max_length=255)
-    street = models.ForeignKey(Street, on_delete=models.PROTECT)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.label
-
-
 class Vulnerability(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
@@ -76,6 +80,18 @@ class Vulnerability(models.Model):
 class People(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    email = models.EmailField(null=True)
+    birth_date = models.DateField()
+    citizen = models.CharField(max_length=255)
+    occupation = models.CharField(max_length=255, null=True)
+    phone = models.CharField(max_length=255, null=True)
+
+    has_cni = models.BooleanField(default=False)
+    has_birth_certificat = models.BooleanField(default=False)
+    is_autochtone = models.BooleanField(default=False)
+    is_handicape = models.BooleanField(default=False)
+    is_menage_chief = models.BooleanField(default=False)
+
     status = models.CharField(
         max_length=1,
         choices=PeopleStatusChoices.choices,
@@ -83,11 +99,6 @@ class People(models.Model):
     sex = models.CharField(
         max_length=1,
         choices=SexChoices.choices)
-    has_cni = models.BooleanField(default=False)
-    has_birth_certificat = models.BooleanField(default=False)
-    is_autochtone = models.BooleanField(default=False)
-    is_handicape = models.BooleanField(default=False)
-    is_menage_chief = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -98,3 +109,8 @@ class People(models.Model):
 
     def __str__(self):
         return self.first_name
+
+
+class Ong(models.Model):
+    name = models.CharField(max_length=255)
+    social_reason = models.CharField(max_length=1000)
