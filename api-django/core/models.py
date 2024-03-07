@@ -21,26 +21,20 @@ class Commune(models.Model):
 
 class Menage(models.Model):
     name = models.CharField(max_length=200)
-    desc = models.CharField(max_length=1000)
+    description = models.CharField(max_length=1000)
 
     def __str__(self):
         return self.name
 
 
 class SexChoices(models.TextChoices):
-    SEX_CHOICE_MALE = 'M'
-    SEX_CHOICE_FEMALE = 'F'
-
-    MALE = (SEX_CHOICE_MALE, 'MALE')
-    FEMALE = (SEX_CHOICE_FEMALE, 'FEMALE')
+    MALE = 'M'
+    FEMALE = 'F'
 
 
 class PeopleStatusChoices(models.TextChoices):
-    PEOPLE_STATUS_CHOICES_ALIVE = '1'
-    PEOPLE_STATUS_CHOICES_DEAD = '0'
-
-    ALIVE = (PEOPLE_STATUS_CHOICES_ALIVE, 'Alive')
-    DEAD = (PEOPLE_STATUS_CHOICES_DEAD, 'Dead')
+    ALIVE = '1'
+    DEAD = '0'
 
 
 class People(models.Model):
@@ -67,7 +61,7 @@ class Street(models.Model):
     label = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.first_name
+        return self.label
 
 
 class Vulnerability(models.Model):
