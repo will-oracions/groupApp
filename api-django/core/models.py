@@ -132,11 +132,12 @@ class People(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     # Relationship
-    vulnerabilities = models.ManyToManyField(Vulnerability)
+    vulnerabilities = models.ManyToManyField(
+        Vulnerability, related_name='peoples')
     menage = models.ForeignKey(Menage, on_delete=models.PROTECT)
 
     def __str__(self):
-        return self.first_name
+        return f"{self.first_name} {self.last_name}"
 
 
 class Ong(models.Model):

@@ -40,3 +40,27 @@ class CommuneStreetViewSet(ModelViewSet):
 class CommuneViewSet(ModelViewSet):
     queryset = models.Commune.objects.all()
     serializer_class = serializers.CommuneSerializer
+
+
+class MenageViewSet(ModelViewSet):
+    queryset = models.Menage.objects.all()
+    serializer_class = serializers.MenageSerializer
+
+
+class MenagePeopleViewSet(ModelViewSet):
+    queryset = models.People.objects.all()
+    serializer_class = serializers.PeopleSerializer
+
+    def get_serializer_context(self):
+        return {'menage_id': self.kwargs['menage_pk']}
+
+
+class PeopleVulnerabilityViewSet(ModelViewSet):
+    serializer_class = serializers.VulnerabilitySerializer
+
+    def get_queryset(self):
+        people_id = self.kwargs['people_pk']
+        return models.Vulnerability.objects.filter(peoples__id__contains=people_id).all()
+
+    def get_serializer_context(self):
+        return {'people_id': self.kwargs['people_pk']}
