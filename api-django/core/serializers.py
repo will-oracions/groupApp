@@ -72,3 +72,15 @@ class VulnerabilitySerializer(serializers.ModelSerializer):
         vulnerability.peoples.set(people_id)
         vulnerability.save()
         return vulnerability
+
+
+class AgentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Agent
+        fields = common_fields + ['first_name', 'last_name', 'email', 'phone']
+
+
+class OngSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Ong
+        fields = common_fields + ['name', 'social_reason']

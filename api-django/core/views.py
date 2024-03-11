@@ -64,3 +64,13 @@ class PeopleVulnerabilityViewSet(ModelViewSet):
 
     def get_serializer_context(self):
         return {'people_id': self.kwargs['people_pk']}
+
+
+class AgentViewSet(ModelViewSet):
+    queryset = models.Agent.objects.all()
+    serializer_class = serializers.AgentSerializer
+
+
+class OngViewSet(ModelViewSet):
+    queryset = models.Ong.objects.all()
+    serializer_class = serializers.OngSerializer

@@ -9,6 +9,8 @@ router = DefaultRouter()
 router.register('regions', views.RegionViewSet, basename='regions')
 router.register('communes', views.CommuneViewSet, basename='communes')
 router.register('menages', views.MenageViewSet, basename='menages')
+router.register('agents', views.AgentViewSet, basename='agents')
+router.register('ongs', views.OngViewSet, basename='ongs')
 
 commune_router = NestedDefaultRouter(router, 'communes', lookup='commune')
 commune_router.register('streets', views.CommuneStreetViewSet,
@@ -21,7 +23,6 @@ region_router.register(
 menage_router = NestedDefaultRouter(router, 'menages', lookup='menage')
 menage_router.register(
     'peoples', views.MenagePeopleViewSet, basename='menage-peoples')
-
 
 people_router = NestedDefaultRouter(menage_router, 'peoples', lookup='people')
 people_router.register(

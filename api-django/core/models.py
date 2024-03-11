@@ -136,6 +136,9 @@ class People(models.Model):
         Vulnerability, related_name='peoples')
     menage = models.ForeignKey(Menage, on_delete=models.PROTECT)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
@@ -143,3 +146,6 @@ class People(models.Model):
 class Ong(models.Model):
     name = models.CharField(max_length=255)
     social_reason = models.CharField(max_length=1000)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
