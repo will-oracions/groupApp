@@ -15,6 +15,9 @@ class DepartmentSerilizer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         region_id = self.context['region_id']
+        if not models.Region.objects.filter(pk=region_id):
+            raise serializers.ValidationError(
+                'No region found with the given ID')
         return models.Department.objects.create(region_id=region_id, **validated_data)
 
 
@@ -33,6 +36,9 @@ class StreetSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         commune_id = self.context['commune_id']
+        if not models.Commune.objects.filter(pk=commune_id):
+            raise serializers.ValidationError(
+                'No commune found with the given ID')
         return models.Street.objects.create(commune_id=commune_id, **validated_data)
 
 
@@ -57,6 +63,9 @@ class PeopleSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         menage_id = self.context['menage_id']
+        if not models.Menage.objects.filter(pk=menage_id):
+            raise serializers.ValidationError(
+                'No menage found with the given ID')
         return models.People.objects.create(menage_id=menage_id, **validated_data)
 
 

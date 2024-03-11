@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.viewsets import ModelViewSet
+from django.shortcuts import get_object_or_404
 from pprint import pprint
 
 from . import models
@@ -19,8 +20,11 @@ class RegionViewSet(ModelViewSet):
 
 
 class RegionDepartmentViewSet(ModelViewSet):
-    queryset = models.Department.objects.all()
+    # queryset = models.Department.objects.all()
     serializer_class = serializers.DepartmentSerilizer
+
+    def get_queryset(self):
+        return models.Department.objects.filter(region_id=self.kwargs['region_pk'])
 
     def get_serializer_context(self):
         return {'region_id': self.kwargs['region_pk']}
@@ -30,7 +34,6 @@ class CommuneStreetViewSet(ModelViewSet):
     serializer_class = serializers.StreetSerializer
 
     def get_queryset(self):
-        pprint(self.kwargs)
         return models.Street.objects.filter(commune_id=self.kwargs['commune_pk'])
 
     def get_serializer_context(self):
@@ -48,8 +51,12 @@ class MenageViewSet(ModelViewSet):
 
 
 class MenagePeopleViewSet(ModelViewSet):
-    queryset = models.People.objects.all()
+    # queryset = models.People.objects.all()
     serializer_class = serializers.PeopleSerializer
+
+    def get_queryset(self):
+        menage_id = self.kwargs['menage_pk']
+        return models.People.objects.filter(menage_id=menage_id)
 
     def get_serializer_context(self):
         return {'menage_id': self.kwargs['menage_pk']}
