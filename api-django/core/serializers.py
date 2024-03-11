@@ -4,10 +4,13 @@ from . import models
 
 class DepartmentSerilizer(serializers.ModelSerializer):
     # region = RegionSerilizer()
-
     class Meta:
         model = models.Department
-        fields = ['id', 'name', 'code', 'region']
+        fields = ['id', 'name', 'code']
+
+    def create(self, validated_data):
+        region_id = self.context['region_id']
+        return models.Department.objects.create(region_id=region_id, **validated_data)
 
 
 class RegionSerilizer(serializers.ModelSerializer):

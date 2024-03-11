@@ -22,6 +22,9 @@ class RegionDepartmentViewSet(ModelViewSet):
     queryset = models.Department.objects.all()
     serializer_class = serializers.DepartmentSerilizer
 
+    def get_serializer_context(self):
+        return {'region_id': self.kwargs['region_pk']}
+
 
 class CommuneStreetViewSet(ModelViewSet):
     serializer_class = serializers.StreetSerializer
