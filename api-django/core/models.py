@@ -28,10 +28,37 @@ class Agent(models.Model):
         return self.first_name
 
 
+class Region(models.Model):
+    name = models.CharField(max_length=255)
+    code = models.CharField(max_length=255)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Department(models.Model):
+    name = models.CharField(max_length=255)
+    code = models.CharField(max_length=255)
+
+    region = models.ForeignKey(
+        Region, on_delete=models.PROTECT, related_name='departments')
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Commune(models.Model):
     name = models.CharField(max_length=255)
     code = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
+    city = models.CharField(max_length=255, null=True)
+
+    department = models.ForeignKey(Department, on_delete=models.PROTECT)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -43,7 +70,8 @@ class Commune(models.Model):
 class Street(models.Model):
     name = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
-    commune = models.ForeignKey(Commune, on_delete=models.PROTECT)
+    commune = models.ForeignKey(
+        Commune, on_delete=models.PROTECT, null=True, related_name='streets')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
