@@ -10,6 +10,7 @@ python-dotenv = "*"
 mysqlclient = "*"
 drf-yasg = "*"
 drf-nested-routers = "*"
+load-dotenv = "*"
 
 [dev-packages]
 

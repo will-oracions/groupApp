@@ -1,0 +1,10 @@
+insert into core_region (name, code, created_at, updated_at) values ('Centre', 'CE', '2023-03-12 23:15:29', '2023-09-24 11:02:07');
+insert into core_region (name, code, created_at, updated_at) values ('Sud', 'Su', '2023-04-30 18:19:39', '2023-10-09 21:46:39');
+insert into core_region (name, code, created_at, updated_at) values ('Nord', 'Nd', '2023-06-24 23:16:14', '2024-01-17 15:44:42');
+insert into core_region (name, code, created_at, updated_at) values ('Extrême Nord', 'EN', '2023-07-28 06:23:34', '2023-11-30 14:52:57');
+insert into core_region (name, code, created_at, updated_at) values ('Adamawa', 'AD', '2023-07-04 06:41:25', '2023-05-20 08:55:36');
+insert into core_region (name, code, created_at, updated_at) values ('Est', 'ES', '2023-10-07 03:52:23', '2023-04-23 04:46:38');
+insert into core_region (name, code, created_at, updated_at) values ('Ouest', 'OU', '2023-06-19 11:06:38', '2023-05-11 15:06:12');
+insert into core_region (name, code, created_at, updated_at) values ('Nord Ouest', 'NO', '2024-02-13 14:34:48', '2024-01-18 11:19:41');
+insert into core_region (name, code, created_at, updated_at) values ('Sud Ouest', 'SO', '2023-05-21 20:03:58', '2023-09-15 09:07:22');
+insert into core_region (name, code, created_at, updated_at) values ('Litorale', 'Li', '2023-05-06 01:13:15', '2023-12-01 08:43:57');
