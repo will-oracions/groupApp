@@ -3,8 +3,8 @@ version: "3"
 services:
   db_dev:
     image: mysql:latest
-    # ports:
-    #   - "5306:3306"
+    ports:
+      - "5306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: db_dev
@@ -15,35 +15,42 @@ services:
     networks:
       - network
 
-    # api_dev:
-    #   build:
-    #     context: ./api-django
-    #     dockerfile: Dockerfile.api
-    #   ports:
-    #     - "7100:9000"
-    #   depends_on:
-    #     - db_dev
-    #   environment:
-    #     - DATABASE_URL=mysql://root:root@db_dev/db
-    #   volumes:
-    #     - ./api-django:/app
-    #   networks:
-    #     - network
-
   api_dev:
     build:
-      context: ./api-express
+      context: ./api-django
       dockerfile: Dockerfile.api
     ports:
-      - "7900:9000"
+      - "7100:9000"
     depends_on:
       - db_dev
-    # environment:
-    #   - DATABASE_URL=mysql://root:root@db_dev/db
+    # env_file:
+    #   - ./api-django/.env
+    environment:
+      # - DATABASE_URL=mysql://root:root@db_dev/db
+      - DB_NAME=db_dev
+      - DB_USER=user
+      - DB_PASSWORD=root
+      - DB_HOST=db_dev
+      - DB_PORT=3306
     volumes:
-      - ./api-express:/app
+      - ./api-django:/app
     networks:
       - network
+
+  # api_dev:
+  #   build:
+  #     context: ./api-express
+  #     dockerfile: Dockerfile.api
+  #   ports:
+  #     - "7900:9000"
+  #   depends_on:
+  #     - db_dev
+  #   # environment:
+  #   #   - DATABASE_URL=mysql://root:root@db_dev/db
+  #   volumes:
+  #     - ./api-express:/app
+  #   networks:
+  #     - network
 
   web_dev:
     build:
